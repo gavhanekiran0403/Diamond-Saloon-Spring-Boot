@@ -1,22 +1,24 @@
 package com.diamond.saloon.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class UserDto {
+public class OtpVerifyDto {
 
-	@NotBlank(message = "Name is required")
-	private String fullName;
-	
 	@NotBlank(message = "Mobile number is required")
 	@Pattern(
 			regexp = "^[6-9][0-9]{9}$",
 			message = "Invalid mobile number"
 	)
 	private String phone;
+	
+	@NotBlank(message = "OTP is required")
+	@Pattern(
+		regexp = "\\d{6}",
+		message = "OTP must be 6 digits"
+			)
+	private String otp;
 	
 }
