@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.diamond.saloon.dto.LoginDto;
-import com.diamond.saloon.dto.OtpVerifyDto;
 import com.diamond.saloon.dto.UserDto;
 import com.diamond.saloon.responsedto.UserResponseDto;
 import com.diamond.saloon.service.UserService;
@@ -26,30 +25,22 @@ public class UserController {
 	
 	
 	@PostMapping("/register")
-	public String register(@Valid @RequestBody UserDto user) {
+	public UserResponseDto register(@Valid @RequestBody UserDto user) {
 		return userService.register(user);
 		
 	}
 	
-	@PostMapping("/login/send-otp")
-	public String sendOTP(@RequestBody LoginDto dto) {
-		return userService.sendOTP(dto);
+	
+	@PostMapping("/login")
+	public UserResponseDto login(@Valid @RequestBody LoginDto dto) {
+		return userService.login(dto);
 	}
 	
 	
-	@PostMapping("/login/verify-otp")
-	public String verifyOTP(@RequestBody OtpVerifyDto dto) {
-		return userService.verifyOTP(dto);
-	}
-	
-	@PostMapping("/login/resend-otp/{phone}")
-	public void resendOTP(@PathVariable String phone) {
-		userService.resendOTP(phone);
-	}
-	
-	@PostMapping("/logout/{phone}")
-	public void logout(@PathVariable String phone) {
-		userService.logout(phone);
+	@PostMapping("/logout/{userId}")
+	public String logout(@PathVariable String userId) {
+		userService.logout(userId);
+		return "Logout successful";
 	}
 	
 	

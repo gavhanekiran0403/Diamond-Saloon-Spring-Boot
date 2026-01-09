@@ -3,6 +3,7 @@ package com.diamond.saloon.model;
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.diamond.saloon.enums.Role;
@@ -17,13 +18,13 @@ public class User {
 	private String userId;
 	
 	private String fullName;
-	private String phone;
+	private String email;
 	
+	@Indexed(unique = true)
+	private String phone;
+	private String password;
 	private Role role;
 	
-	private String otp;
-	private LocalDateTime otpExpiry;
-	
-	private boolean loginStatus;
+	private Boolean loginStatus = false;
 	
 }
