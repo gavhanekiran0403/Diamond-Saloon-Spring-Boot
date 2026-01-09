@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService{
 		User user = userRepository.findByPhone(dto.getPhone())
 				.orElseThrow(() -> new BadRequestException("Invalid mobile number"));
 		
-		if(!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
+		if(!user.getPassword().equals(dto.getPassword())) {
 			throw new BadRequestException("Invalid password");
 		}
 		
