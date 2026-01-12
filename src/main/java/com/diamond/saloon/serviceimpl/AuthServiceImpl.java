@@ -1,8 +1,5 @@
 package com.diamond.saloon.serviceimpl;
 
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -103,11 +100,4 @@ public class AuthServiceImpl implements AuthService{
 		userRepository.save(user);
 		
 	}
-
-
-
-	
-
-	
-
 }
