@@ -1,7 +1,5 @@
 package com.diamond.saloon.serviceimpl;
 
-import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -10,7 +8,6 @@ import com.diamond.saloon.dto.LoginDto;
 import com.diamond.saloon.dto.UserDto;
 import com.diamond.saloon.enums.Role;
 import com.diamond.saloon.exception.BadRequestException;
-import com.diamond.saloon.exception.ResourceNotFoundException;
 import com.diamond.saloon.mapper.UserMapper;
 import com.diamond.saloon.model.User;
 import com.diamond.saloon.repository.UserRepository;
@@ -50,13 +47,12 @@ public class UserServiceImpl implements UserService{
 	}
 
 
-	@Override
 	public UserResponseDto login(LoginDto dto) {
 		
 		User user = userRepository.findByPhone(dto.getPhone())
 				.orElseThrow(() -> new BadRequestException("Invalid mobile number"));
 		
-		if(!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
+		if(!user.getPassword().equals(dto.getPassword())) {
 			throw new BadRequestException("Invalid password");
 		}
 		
