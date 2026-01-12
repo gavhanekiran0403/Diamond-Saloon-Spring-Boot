@@ -1,20 +1,19 @@
 package com.diamond.saloon.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import com.diamond.saloon.dto.LoginDto;
+import com.diamond.saloon.dto.AdminLoginDto;
 import com.diamond.saloon.dto.UserDto;
 import com.diamond.saloon.responsedto.UserResponseDto;
-
-
 
 @Service
 public interface UserService {
 
-	public UserResponseDto register(UserDto request);
+	public UserResponseDto getUser(String userId);
 	
-	public UserResponseDto login(LoginDto dto);
+	public List<UserResponseDto> getAllUsers();
 	
-	public void logout(String userId);
-	
+	public UserResponseDto updateUser(String userId, UserDto update);
 }
