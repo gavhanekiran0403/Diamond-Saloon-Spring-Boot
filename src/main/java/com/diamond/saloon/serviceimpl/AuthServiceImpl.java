@@ -1,15 +1,14 @@
 package com.diamond.saloon.serviceimpl;
 
-<<<<<<< HEAD
-=======
 
-import java.util.List;
 
->>>>>>> feature-narendra
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.diamond.saloon.dto.AdminLoginDto;
+import com.diamond.saloon.dto.LoginDto;
 import com.diamond.saloon.dto.UserDto;
 import com.diamond.saloon.enums.Role;
 import com.diamond.saloon.exception.BadRequestException;
@@ -17,17 +16,20 @@ import com.diamond.saloon.mapper.UserMapper;
 import com.diamond.saloon.model.User;
 import com.diamond.saloon.repository.UserRepository;
 import com.diamond.saloon.responsedto.UserResponseDto;
-import com.diamond.saloon.service.UserService;
+import com.diamond.saloon.service.AuthService;
+
 
 @Component
-public class UserServiceImpl implements UserService{
+public class AuthServiceImpl implements AuthService{
 	
 	@Autowired
 	private UserRepository userRepository;
-
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	
 	@Override
-<<<<<<< HEAD
 	public UserResponseDto register(UserDto request){
 		
 		if(userRepository.existsByPhone(request.getPhone())) {
@@ -49,6 +51,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 
+	@Override
 	public UserResponseDto login(LoginDto dto) {
 		
 		User user = userRepository.findByPhone(dto.getPhone())
@@ -67,49 +70,43 @@ public class UserServiceImpl implements UserService{
 		
 		return UserMapper.toDto(userRepository.save(user));
 	}
+	
+	
+	@Override
+	public UserResponseDto adminLogin(AdminLoginDto adminDto) {
+		
+		User admin = userRepository.findByEmail(adminDto.getEmail())
+				.orElseThrow(() -> new BadRequestException("Invalid email"));
+		
+		if(admin.getRole() != Role.ADMIN) {
+			throw new BadRequestException("Access denied. Not an admin");
+		}
+		
+		if(!admin.getPassword().equals(adminDto.getPassword())) {
+			throw new BadRequestException("Invalid password");
+		}
+		
+		
+		
+		
+		return UserMapper.toDto(admin);
+	}
 
 
 	@Override
 	public void logout(String userId) {
 		
-=======
-	public UserResponseDto getUser(String userId) {
->>>>>>> feature-narendra
 		User user = userRepository.findById(userId)
-				.orElseThrow(() -> new ResourceNotFoundException("User not found"));
+				.orElseThrow(() -> new BadRequestException("User not found"));
 		
-		return UserMapper.toDto(user);
-	}
-	
-
-	@Override
-	public List<UserResponseDto> getAllUsers() {
-		List<User> users = userRepository.findAll();
-		
-		if(users.isEmpty()) {
-			throw new ResourceNotFoundException("No users found");
-		}
-		
-		return users.stream()
-				.filter(user -> user.getRole()==Role.CUSTOMER)
-				.map(UserMapper :: toDto)
-				.toList();
-	}
-
-
-	@Override
-	public UserResponseDto updateUser(String userId, UserDto update) {
-
-		User user = userRepository.findById(userId)
-				.orElseThrow(() -> new ResourceNotFoundException("User not found"));
-		
-		user.setFullName(update.getFullName());
-		user.setEmail(update.getEmail());
+		user.setLoginStatus(false);
 		userRepository.save(user);
-		return UserMapper.toDto(user);
+		
 	}
 
 
+
+	
 
 	
 
