@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.diamond.saloon.dto.AdminLoginDto;
 import com.diamond.saloon.dto.LoginDto;
-import com.diamond.saloon.dto.RegisterDto;
+import com.diamond.saloon.dto.UserDto;
 import com.diamond.saloon.responsedto.UserResponseDto;
 import com.diamond.saloon.service.AuthService;
 
@@ -26,7 +26,7 @@ public class AuthController {
 	
 	
 	@PostMapping("/register")
-	public UserResponseDto register(@Valid @RequestBody RegisterDto user) {
+	public UserResponseDto register(@Valid @RequestBody UserDto user) {
 		return authService.register(user);
 		
 	}

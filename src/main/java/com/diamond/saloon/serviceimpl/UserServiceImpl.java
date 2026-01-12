@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.diamond.saloon.dto.AdminLoginDto;
+import com.diamond.saloon.dto.UserDto;
 import com.diamond.saloon.enums.Role;
 import com.diamond.saloon.exception.BadRequestException;
 import com.diamond.saloon.exception.ResourceNotFoundException;
@@ -44,6 +45,19 @@ public class UserServiceImpl implements UserService{
 				.filter(user -> user.getRole()==Role.CUSTOMER)
 				.map(UserMapper :: toDto)
 				.toList();
+	}
+
+
+	@Override
+	public UserResponseDto updateUser(String userId, UserDto update) {
+
+		User user = userRepository.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User not found"));
+		
+		user.setFullName(update.getFullName());
+		user.setEmail(update.getEmail());
+		userRepository.save(user);
+		return UserMapper.toDto(user);
 	}
 
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.diamond.saloon.dto.AdminLoginDto;
 import com.diamond.saloon.dto.LoginDto;
-import com.diamond.saloon.dto.RegisterDto;
+import com.diamond.saloon.dto.UserDto;
 import com.diamond.saloon.enums.Role;
 import com.diamond.saloon.exception.BadRequestException;
 import com.diamond.saloon.mapper.UserMapper;
@@ -30,7 +30,7 @@ public class AuthServiceImpl implements AuthService{
 	
 	
 	@Override
-	public UserResponseDto register(RegisterDto request){
+	public UserResponseDto register(UserDto request){
 		
 		if(userRepository.existsByPhone(request.getPhone())) {
 			throw new RuntimeException("Mobile number already registered");
