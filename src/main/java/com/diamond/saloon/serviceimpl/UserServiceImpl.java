@@ -46,7 +46,6 @@ public class UserServiceImpl implements UserService {
 		return UserMapper.toDto(user);
 	}
 
-
 	@Override
 	public UserResponseDto getUser(String userId) {
 		User user = userRepository.findById(userId)
