@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ServiceDto {
+public class SaloonServiceDto {
 
     private String serviceId;
 
@@ -19,9 +19,9 @@ public class ServiceDto {
 
     private String category;   // MEN or WOMEN
 
-    private double price;
+    private String price;
 
-    private int durationMinutes;
+    private String durationMinutes;
 
     private boolean isActive;  // Lombok will generate isActive() & setActive()
 }

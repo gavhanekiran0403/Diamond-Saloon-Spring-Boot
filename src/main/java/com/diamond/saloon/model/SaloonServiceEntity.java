@@ -18,23 +18,23 @@ import lombok.ToString;
 @Setter
 @ToString
 @Document(collection = "services")
-public class Service {
+public class SaloonServiceEntity {
 
 
 @Id
-private String serviceId; // _id (ObjectId)
+private String serviceId;
 
 
-private String serviceName; // Name of the service
+private String serviceName; 
 
 
 private String category; // MEN or WOMEN
 
 
-private double price; // Service cost
+private String price; 
 
 
-private int durationMinutes; // Service duration
+private String durationMinutes; 
 
 
 private boolean isActive; // Availability status
