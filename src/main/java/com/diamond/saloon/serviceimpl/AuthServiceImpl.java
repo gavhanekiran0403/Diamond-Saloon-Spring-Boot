@@ -22,17 +22,12 @@ public class AuthServiceImpl implements AuthService{
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
-	
 	@Override
 	public UserResponseDto register(UserDto request){
 		
 		if(userRepository.existsByPhone(request.getPhone())) {
 			throw new RuntimeException("Mobile number already registered");
 		}
-		
 		
 		User user = new User();
 		user.setFullName(request.getFullName());
@@ -42,8 +37,6 @@ public class AuthServiceImpl implements AuthService{
 		user.setRole(Role.CUSTOMER);
 		user.setLoginStatus(false);
 
-		
-		
 		return UserMapper.toDto(userRepository.save(user));
 	}
 
@@ -61,7 +54,6 @@ public class AuthServiceImpl implements AuthService{
 		if(Boolean.TRUE.equals(user.getLoginStatus())) {
 			throw new BadRequestException("User already logged in on another device");
 		}
-		
 		
 		user.setLoginStatus(true);
 		
@@ -82,9 +74,6 @@ public class AuthServiceImpl implements AuthService{
 		if(!admin.getPassword().equals(adminDto.getPassword())) {
 			throw new BadRequestException("Invalid password");
 		}
-		
-		
-		
 		
 		return UserMapper.toDto(admin);
 	}

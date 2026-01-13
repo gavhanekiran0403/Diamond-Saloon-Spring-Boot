@@ -1,6 +1,5 @@
 package com.diamond.saloon.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +15,6 @@ import com.diamond.saloon.service.AuthService;
 
 import jakarta.validation.Valid;
 
-
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -24,13 +22,10 @@ public class AuthController {
 	@Autowired
 	private AuthService authService;
 	
-	
 	@PostMapping("/register")
 	public UserResponseDto register(@Valid @RequestBody UserDto user) {
 		return authService.register(user);
-		
 	}
-	
 	
 	@PostMapping("/login")
 	public UserResponseDto login(@Valid @RequestBody LoginDto dto) {
@@ -40,16 +35,12 @@ public class AuthController {
 	@PostMapping("/admin/login")
 	public UserResponseDto adminLogin(@Valid @RequestBody AdminLoginDto login) {
 		return authService.adminLogin(login);
-		
 	}
 
-	
-	
 	@PostMapping("/logout/{userId}")
 	public String logout(@PathVariable String userId) {
 		authService.logout(userId);
 		return "Logout successful";
 	}
-	
 	
 }
