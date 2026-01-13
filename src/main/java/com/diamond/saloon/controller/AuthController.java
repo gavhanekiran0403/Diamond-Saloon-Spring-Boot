@@ -15,10 +15,12 @@ import com.diamond.saloon.responsedto.UserResponseDto;
 import com.diamond.saloon.service.AuthService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
 	@Autowired
