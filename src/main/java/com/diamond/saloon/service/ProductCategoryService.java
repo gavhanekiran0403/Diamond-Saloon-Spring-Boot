@@ -19,7 +19,7 @@ public interface ProductCategoryService {
 	
 	public ProductCategory updateProductCategory(String productCategoryId, ProductCategoryDto categoryDto);
 	
-	public void deleteProductCategory(String categroyId);
+	public void deleteProductCategory(String categoryId);
 	
 	
 }

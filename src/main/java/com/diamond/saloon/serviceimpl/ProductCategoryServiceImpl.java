@@ -69,8 +69,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService{
 
 
 	@Override
-	public void deleteProductCategory(String categroyId) {
-		ProductCategory category = getProductCategoryById(categroyId);
+	public void deleteProductCategory(String categoryId) {
+		ProductCategory category = getProductCategoryById(categoryId);
 		productCategoryRepository.delete(category);
 		
 	}
