@@ -1,12 +1,12 @@
 package com.diamond.saloon.serviceimpl;
 
-import java.time.LocalDateTime;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.diamond.saloon.dto.LoginDto;
+import com.diamond.saloon.dto.AdminLoginDto;
 import com.diamond.saloon.dto.UserDto;
 import com.diamond.saloon.enums.Role;
 import com.diamond.saloon.exception.BadRequestException;
@@ -17,75 +17,45 @@ import com.diamond.saloon.repository.UserRepository;
 import com.diamond.saloon.responsedto.UserResponseDto;
 import com.diamond.saloon.service.UserService;
 
-
 @Component
 public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
-	
 	@Override
-	public UserResponseDto register(UserDto request){
+	public List<UserResponseDto> getAllUsers() {
+		List<User> users = userRepository.findAll();
 		
-		if(userRepository.existsByPhone(request.getPhone())) {
-			throw new RuntimeException("Mobile number already registered");
+		if(users.isEmpty()) {
+			throw new ResourceNotFoundException("No users found");
 		}
 		
-		
-		User user = new User();
-		user.setFullName(request.getFullName());
-		user.setPhone(request.getPhone());
-		user.setEmail(request.getEmail());
-		user.setPassword(request.getPassword());
-		user.setRole(Role.CUSTOMER);
-		user.setLoginStatus(false);
-
-		
-		
-		return UserMapper.toDto(userRepository.save(user));
+		return users.stream()
+				.filter(user -> user.getRole()==Role.CUSTOMER)
+				.map(UserMapper :: toDto)
+				.toList();
 	}
 
 
 	@Override
-	public UserResponseDto login(LoginDto dto) {
-		
-		User user = userRepository.findByPhone(dto.getPhone())
-				.orElseThrow(() -> new BadRequestException("Invalid mobile number"));
-		
-		if(!user.getPassword().equals(dto.getPassword())) {
-			throw new BadRequestException("Invalid password");
-		}
-		
-		if(Boolean.TRUE.equals(user.getLoginStatus())) {
-			throw new BadRequestException("User already logged in on another device");
-		}
-		
-		
-		user.setLoginStatus(true);
-		
-		return UserMapper.toDto(userRepository.save(user));
-	}
+	public UserResponseDto updateUser(String userId, UserDto update) {
 
-
-	@Override
-	public void logout(String userId) {
-		
 		User user = userRepository.findById(userId)
-				.orElseThrow(() -> new BadRequestException("User not found"));
+				.orElseThrow(() -> new ResourceNotFoundException("User not found"));
 		
-		user.setLoginStatus(false);
+		user.setFullName(update.getFullName());
+		user.setEmail(update.getEmail());
 		userRepository.save(user);
-		
+		return UserMapper.toDto(user);
 	}
 
 
-
-	
-
+	@Override
+	public UserResponseDto getUser(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }
