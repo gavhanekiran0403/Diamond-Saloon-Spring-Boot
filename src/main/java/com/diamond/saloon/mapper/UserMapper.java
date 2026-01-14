@@ -1,21 +1,21 @@
 package com.diamond.saloon.mapper;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Component;
+
 import com.diamond.saloon.model.User;
 import com.diamond.saloon.responsedto.UserResponseDto;
 
+@Component
 public class UserMapper {
 	
+	@Autowired
+	private ModelMapper modelMapper;
 	
-	public static UserResponseDto toDto(User user) {
+	public UserResponseDto toDto(User user) {
 		
-		UserResponseDto dto = new UserResponseDto();
-		
-		dto.setUserId(user.getUserId());
-		dto.setFullName(user.getFullName());
-		dto.setEmail(user.getEmail());
-		dto.setPhone(user.getPhone());
-		dto.setRole(user.getRole());
-		
-		return dto;
+		return modelMapper.map(user, UserResponseDto.class);
 	}
 }

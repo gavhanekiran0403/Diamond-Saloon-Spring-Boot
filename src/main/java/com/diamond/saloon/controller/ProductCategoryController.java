@@ -24,6 +24,9 @@ public class ProductCategoryController {
 	@Autowired
 	private ProductCategoryService ProductCategoryService;
 	
+	
+	
+	//Create a new product category
 	@PostMapping("/create")
 	public ProductCategory createCategory(@RequestBody ProductCategoryDto categoryDto) {
 		return ProductCategoryService.addCategory(categoryDto);
@@ -31,6 +34,8 @@ public class ProductCategoryController {
 	}
 	
 	
+	
+	//Get all product categories
 	@GetMapping("/get-all")
 	public List<ProductCategory> getAllCategories(){
 		return ProductCategoryService.getAllCategories();
@@ -38,19 +43,25 @@ public class ProductCategoryController {
 	}
 	
 	
+	
+	//Get product category by Id
 	@GetMapping("/{productCategoryId}")
 	public ProductCategory getProductCategoryById(@PathVariable String productCategoryId) {
 		return ProductCategoryService.getProductCategoryById(productCategoryId);
 	}
 	
 	
+	
+	//Update an existing product category
 	@PutMapping("/update/{productCategoryId}")
 	public ProductCategory updateCategory(@PathVariable String productCategoryId, @RequestBody ProductCategoryDto categoryDto) {
 		return ProductCategoryService.updateProductCategory(productCategoryId, categoryDto);
 		
 	}
 
+	
 
+	//Delete product category by Id
 	@DeleteMapping("/delete/{productCategoryId}")
 	public String deleteProductCategory(@PathVariable String productCategoryId) {
 		ProductCategoryService.deleteProductCategory(productCategoryId);

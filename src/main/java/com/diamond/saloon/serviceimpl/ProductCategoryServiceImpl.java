@@ -20,7 +20,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService{
 	@Autowired
 	private ProductCategoryRepository productCategoryRepository;
 	
-	
+	@Autowired
+	private ProductCategoryMapper productCategoryMapper;
 
 	@Override
 	public ProductCategory addCategory(ProductCategoryDto categoryDto) {
@@ -29,7 +30,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService{
 			throw new BadRequestException("Product category already exists");
 		}
 		
-		ProductCategory category = ProductCategoryMapper.toEntity(categoryDto);
+		ProductCategory category = productCategoryMapper.toEntity(categoryDto);
 		
 		return productCategoryRepository.save(category);
 		
@@ -60,7 +61,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService{
 
 		ProductCategory category = getProductCategoryById(productCategoryId);
 		
-		ProductCategoryMapper.updateEntity(category, categoryDto);
+		productCategoryMapper.updateEntity(categoryDto, category);
 				
 		
 		return productCategoryRepository.save(category);

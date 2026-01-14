@@ -1,7 +1,7 @@
 package com.diamond.saloon.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired; 
+import org.springframework.beans.factory.annotation.Autowired;  
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +26,7 @@ public class AuthController {
 	@Autowired
 	private AuthService authService;
 	
-	
+	//registered a new user
 	@PostMapping("/register")
 	public UserResponseDto register(@Valid @RequestBody UserDto user) {
 		return authService.register(user);
@@ -34,11 +34,15 @@ public class AuthController {
 	}
 	
 	
+	
+	//Login User
 	@PostMapping("/login")
 	public UserResponseDto login(@Valid @RequestBody LoginDto dto) {
 		return authService.login(dto);
 	}
 	
+	
+	//Admin login
 	@PostMapping("/admin/login")
 	public UserResponseDto adminLogin(@Valid @RequestBody AdminLoginDto login) {
 		return authService.adminLogin(login);
@@ -46,7 +50,7 @@ public class AuthController {
 	}
 
 	
-	
+	//logout user and admin
 	@PostMapping("/logout/{userId}")
 	public String logout(@PathVariable String userId) {
 		authService.logout(userId);

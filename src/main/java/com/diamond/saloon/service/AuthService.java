@@ -9,7 +9,7 @@ import com.diamond.saloon.responsedto.UserResponseDto;
 
 
 
-@Service
+
 public interface AuthService {
 
 	public UserResponseDto register(UserDto request);

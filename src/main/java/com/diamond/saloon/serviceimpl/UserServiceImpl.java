@@ -1,12 +1,12 @@
 package com.diamond.saloon.serviceimpl;
 
 
-import java.util.List;
+import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.diamond.saloon.dto.AdminLoginDto;
+
 import com.diamond.saloon.dto.UserDto;
 import com.diamond.saloon.enums.Role;
 import com.diamond.saloon.exception.BadRequestException;
@@ -22,6 +22,8 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	private UserMapper userMapper;
 
 	
 	@Override
@@ -29,7 +31,7 @@ public class UserServiceImpl implements UserService{
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found"));
 		
-		return UserMapper.toDto(user);
+		return userMapper.toDto(user);
 	}
 	
 
@@ -43,7 +45,7 @@ public class UserServiceImpl implements UserService{
 		
 		return users.stream()
 				.filter(user -> user.getRole()==Role.CUSTOMER)
-				.map(UserMapper :: toDto)
+				.map(userMapper :: toDto)
 				.toList();
 	}
 
@@ -57,7 +59,7 @@ public class UserServiceImpl implements UserService{
 		user.setFullName(update.getFullName());
 		user.setEmail(update.getEmail());
 		userRepository.save(user);
-		return UserMapper.toDto(user);
+		return userMapper.toDto(user);
 	}
 
 

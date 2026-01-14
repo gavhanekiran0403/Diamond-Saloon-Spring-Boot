@@ -1,24 +1,25 @@
 package com.diamond.saloon.mapper;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.diamond.saloon.dto.ProductCategoryDto;
 import com.diamond.saloon.model.ProductCategory;
 
 public class ProductCategoryMapper {
+	
+	@Autowired
+	private ModelMapper modelMapper;
 
-	public static ProductCategory toEntity (ProductCategoryDto productCategory) {
+	public  ProductCategory toEntity (ProductCategoryDto productCategoryDto) {
 		
-		ProductCategory category = new ProductCategory();
 		
-		category.setCategoryName(productCategory.getCategoryName());
-		category.setDescription(productCategory.getDescription());
-		
-		return category;
+		return modelMapper.map(productCategoryDto, ProductCategory.class);
 		
 	}
 	
-	public static void updateEntity(ProductCategory category, ProductCategoryDto dto) {
-		category.setCategoryName(dto.getCategoryName());
-		category.setDescription(dto.getDescription());
+	public  void updateEntity(ProductCategoryDto dto, ProductCategory entity) {
+		modelMapper.map(dto, entity);
 	}
 	
 }
