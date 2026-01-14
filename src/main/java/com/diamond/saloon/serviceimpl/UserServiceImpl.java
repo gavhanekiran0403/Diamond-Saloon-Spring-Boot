@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
+import org.springframework.stereotype.Service;
 
 import com.diamond.saloon.dto.UserDto;
 import com.diamond.saloon.enums.Role;
-import com.diamond.saloon.exception.BadRequestException;
+
 import com.diamond.saloon.exception.ResourceNotFoundException;
 import com.diamond.saloon.mapper.UserMapper;
 import com.diamond.saloon.model.User;
@@ -17,12 +17,13 @@ import com.diamond.saloon.repository.UserRepository;
 import com.diamond.saloon.responsedto.UserResponseDto;
 import com.diamond.saloon.service.UserService;
 
-@Component
+@Service
 public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
 	private UserMapper userMapper;
 
 	

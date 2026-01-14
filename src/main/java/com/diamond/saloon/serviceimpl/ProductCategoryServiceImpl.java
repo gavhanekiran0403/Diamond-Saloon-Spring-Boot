@@ -1,10 +1,11 @@
 package com.diamond.saloon.serviceimpl;
 
 
-import java.util.List;
+import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
+import org.springframework.stereotype.Service;
 
 import com.diamond.saloon.dto.ProductCategoryDto;
 import com.diamond.saloon.exception.BadRequestException;
@@ -14,7 +15,7 @@ import com.diamond.saloon.model.ProductCategory;
 import com.diamond.saloon.repository.ProductCategoryRepository;
 import com.diamond.saloon.service.ProductCategoryService;
 
-@Component
+@Service
 public class ProductCategoryServiceImpl implements ProductCategoryService{
 	
 	@Autowired
