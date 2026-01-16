@@ -22,8 +22,9 @@ public class ProductCategoryMapper {
 		
 	}
 	
-	public  void updateEntity(ProductCategoryDto dto, ProductCategory entity) {
-		modelMapper.map(dto, entity);
+	
+	public  ProductCategoryDto toDto(ProductCategory entity) {
+		return modelMapper.map(entity, ProductCategoryDto.class);
 	}
 	
 }

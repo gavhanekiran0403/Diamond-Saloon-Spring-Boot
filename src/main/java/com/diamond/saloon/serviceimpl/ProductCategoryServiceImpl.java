@@ -25,7 +25,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService{
 	private ProductCategoryMapper productCategoryMapper;
 
 	@Override
-	public ProductCategory addCategory(ProductCategoryDto categoryDto) {
+	public ProductCategoryDto addCategory(ProductCategoryDto categoryDto) {
 
 		if(productCategoryRepository.existsByCategoryName(categoryDto.getCategoryName())) {
 			throw new BadRequestException("Product category already exists");
@@ -33,7 +33,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService{
 		
 		ProductCategory category = productCategoryMapper.toEntity(categoryDto);
 		
-		return productCategoryRepository.save(category);
+		return productCategoryMapper.toDto(productCategoryRepository.save(category));
 		
 			
 	}
@@ -41,40 +41,49 @@ public class ProductCategoryServiceImpl implements ProductCategoryService{
 	
 
 	@Override
-	public List<ProductCategory> getAllCategories() {
+	public List<ProductCategoryDto> getAllCategories() {
 
-		return productCategoryRepository.findAll();
+		return productCategoryRepository.findAll()
+				.stream()
+				.map(productCategoryMapper:: toDto)
+				.toList();
 	}
 	
 	
 
 	@Override
-	public ProductCategory getProductCategoryById(String categoryId) {
+	public ProductCategoryDto getProductCategoryById(String categoryId) {
 		
-		return productCategoryRepository.findById(categoryId)
+		ProductCategory category = productCategoryRepository.findById(categoryId)
 				.orElseThrow(() -> new ResourceNotFoundException("Product category not found"));
+		
+		return productCategoryMapper.toDto(category);
 	}
 	
 	
 
 	@Override
-	public ProductCategory updateProductCategory(String productCategoryId, ProductCategoryDto categoryDto) {
+	public ProductCategoryDto updateProductCategory(String productCategoryId, ProductCategoryDto categoryDto) {
 
-		ProductCategory category = getProductCategoryById(productCategoryId);
+		ProductCategory category = productCategoryRepository.findById(productCategoryId)
+				.orElseThrow(() -> new ResourceNotFoundException("Product category not found"));
 		
-		productCategoryMapper.updateEntity(categoryDto, category);
+		category.setCategoryName(categoryDto.getCategoryName());
+		category.setDescription(categoryDto.getDescription());
+		
+		return productCategoryMapper.toDto(productCategoryRepository.save(category));
 				
-		
-		return productCategoryRepository.save(category);
+	
 	}
 
 
 
 	@Override
 	public void deleteProductCategory(String categoryId) {
-		ProductCategory category = getProductCategoryById(categoryId);
-		productCategoryRepository.delete(category);
-		
+		if(!productCategoryRepository.existsById(categoryId)) {
+			throw new ResourceNotFoundException("Product category not found");
+		}
+		productCategoryRepository.deleteById(categoryId);
 	}
 
 	
