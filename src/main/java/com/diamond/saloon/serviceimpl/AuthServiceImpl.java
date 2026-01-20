@@ -1,8 +1,8 @@
 package com.diamond.saloon.serviceimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
+
+import org.springframework.stereotype.Service;
 
 import com.diamond.saloon.dto.AdminLoginDto;
 import com.diamond.saloon.dto.LoginDto;
@@ -15,12 +15,14 @@ import com.diamond.saloon.repository.UserRepository;
 import com.diamond.saloon.responsedto.UserResponseDto;
 import com.diamond.saloon.service.AuthService;
 
-
-@Component
+@Service
 public class AuthServiceImpl implements AuthService{
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private UserMapper userMapper;
 	
 	@Override
 	public UserResponseDto register(UserDto request){
@@ -36,8 +38,8 @@ public class AuthServiceImpl implements AuthService{
 		user.setPassword(request.getPassword());
 		user.setRole(Role.CUSTOMER);
 		user.setLoginStatus(false);
-
-		return UserMapper.toDto(userRepository.save(user));
+			
+		return userMapper.toDto(userRepository.save(user));
 	}
 
 
@@ -57,7 +59,7 @@ public class AuthServiceImpl implements AuthService{
 		
 		user.setLoginStatus(true);
 		
-		return UserMapper.toDto(userRepository.save(user));
+		return userMapper.toDto(userRepository.save(user));
 	}
 	
 	
@@ -75,7 +77,7 @@ public class AuthServiceImpl implements AuthService{
 			throw new BadRequestException("Invalid password");
 		}
 		
-		return UserMapper.toDto(admin);
+		return userMapper.toDto(admin);
 	}
 
 
