@@ -5,19 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.diamond.saloon.dto.AdminLoginDto;
 import com.diamond.saloon.dto.UserDto;
-import com.diamond.saloon.model.User;
 import com.diamond.saloon.responsedto.UserResponseDto;
 import com.diamond.saloon.service.UserService;
 
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/user")

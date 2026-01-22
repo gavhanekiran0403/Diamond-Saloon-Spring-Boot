@@ -1,7 +1,7 @@
 package com.diamond.saloon.serviceimpl;
 
 
-import java.util.List; 
+import java.util.List;  
 
 import org.springframework.beans.factory.annotation.Autowired;
 

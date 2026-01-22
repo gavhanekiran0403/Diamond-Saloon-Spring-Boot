@@ -1,13 +1,17 @@
-package com.diamond.saloon.dto;
+package com.diamond.saloon.responsedto;
 
 import lombok.Data;
 
 @Data
-public class ProductDto {
+public class ProductResponseDto {
 	
 	private String productId;
-	
+
 	private String productName;
+	
+	private String categoryId;
+	
+	private String categoryName;
 	
 	private String brand;
 	
@@ -19,7 +23,6 @@ public class ProductDto {
 	
 	private boolean isAvailable;
 	
-	private String productCategoryId;
-	
+	//private String imageUrl;
 	
 }

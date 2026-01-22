@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.diamond.saloon.dto.ProductDto;
 import com.diamond.saloon.model.Product;
+import com.diamond.saloon.responsedto.ProductResponseDto;
 
 
 
@@ -17,11 +18,15 @@ public class ProductMapper {
 
 	
 	public Product toEntity(ProductDto dto) {
+		
 		return modelMapper.map(dto, Product.class);
+		
 	}
 	
 	
-	public ProductDto toDto(Product entity) {
-		return modelMapper.map(entity, ProductDto.class);
+	public ProductResponseDto toDto(Product product) {
+		
+		return modelMapper.map(product, ProductResponseDto.class);
+		
 	}
 }
