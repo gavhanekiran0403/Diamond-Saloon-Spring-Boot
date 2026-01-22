@@ -1,6 +1,6 @@
 package com.diamond.saloon.responsedto;
 
-import com.diamond.saloon.enums.Role;
+import com.diamond.saloon.enums.Role; 
 
 import lombok.Data;
 
