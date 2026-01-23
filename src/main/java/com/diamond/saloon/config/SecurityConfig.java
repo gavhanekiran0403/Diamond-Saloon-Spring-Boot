@@ -18,7 +18,8 @@ public class SecurityConfig {
 				.requestMatchers(
 						"/auth/**",
 						"/user/**",
-						"/saloon-services/**"
+						"/saloon-services/**",
+						"/saloon-packages/**"
 						).permitAll()
 				.anyRequest().authenticated());
 		
