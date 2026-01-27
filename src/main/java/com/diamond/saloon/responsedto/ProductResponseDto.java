@@ -23,6 +23,6 @@ public class ProductResponseDto {
 	
 	private boolean isAvailable;
 	
-	//private String imageUrl;
+	private String imageUrl;
 	
 }

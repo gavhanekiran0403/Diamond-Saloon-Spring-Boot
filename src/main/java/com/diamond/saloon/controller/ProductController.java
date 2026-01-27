@@ -60,7 +60,7 @@ public class ProductController {
 	@PutMapping(value = "/update/{productId}", consumes = "multipart/form-data")
 	public ProductResponseDto updateProduct(@PathVariable String productId, 
 			@RequestPart("product") ProductDto productDto, 
-			@RequestPart("image") MultipartFile image) {
+			@RequestPart(value = "image", required = false) MultipartFile image) {
 					
 		return productService.updateProduct(productId, productDto, image);
 		
