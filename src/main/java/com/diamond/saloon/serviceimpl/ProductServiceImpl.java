@@ -117,9 +117,10 @@ public class ProductServiceImpl implements ProductService {
 
 		product.setProductName(productDto.getProductName());
 		product.setBrand(productDto.getBrand());
+		product.setDescription(productDto.getDescription());
+		product.setAttributes(productDto.getAttributes());
 		product.setPrice(productDto.getPrice());
 		product.setStockQuantity(productDto.getStockQuantity());
-		product.setDescription(productDto.getDescription());
 		product.setAvailable(productDto.isAvailable());
 
 		if (image != null && !image.isEmpty()) {

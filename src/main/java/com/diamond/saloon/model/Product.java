@@ -1,5 +1,7 @@
 package com.diamond.saloon.model;
 
+import java.util.Map;
+
 import org.springframework.data.annotation.Id; 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -14,19 +16,24 @@ public class Product {
 	
 	private String productName;
 	
+	private String productCategoryId;
+	
 	private String brand;
+	
+	private String description;
+	
+	// for adding product color, size/quantity in ml, gm, pcs 
+	private Map<String, String> attributes; 
 	
 	private double price;
 	
 	private int stockQuantity;
 	
-	private String description;
-	
 	private String imageUrl;
 	
 	private boolean isAvailable;
 	
-	private String productCategoryId;
+	
 	
 	
 }

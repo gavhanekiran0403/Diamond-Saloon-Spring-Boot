@@ -1,5 +1,7 @@
 package com.diamond.saloon.responsedto;
 
+import java.util.Map;
+
 import lombok.Data;
 
 @Data
@@ -9,20 +11,22 @@ public class ProductResponseDto {
 
 	private String productName;
 	
-	private String categoryId;
+	private String productCategoryId;
 	
 	private String categoryName;
 	
 	private String brand;
 	
+	private String description;
+	
+	private Map<String, String> attributes; 
+	
 	private double price;
 	
 	private int stockQuantity;
 	
-	private String description;
-	
 	private boolean isAvailable;
 	
-	//private String imageUrl;
+	private String imageUrl;
 	
 }
