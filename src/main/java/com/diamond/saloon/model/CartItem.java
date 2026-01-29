@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class CartItem {
 
+	private String cartItemId;
+	
 	private String productId;
 	
 	private String productName;

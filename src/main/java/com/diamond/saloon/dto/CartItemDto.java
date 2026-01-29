@@ -10,6 +10,8 @@ import lombok.Data;
 @Data
 public class CartItemDto {
 
+	private String cartItemId;
+	
 	@NotBlank(message = "Product id is required")
 	private String productId;
 	
