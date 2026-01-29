@@ -19,7 +19,8 @@ public class SecurityConfig {
 						"/auth/**",
 						"/user/**",
 						"/saloon-services/**",
-						"/saloon-packages/**"
+						"/saloon-packages/**",
+						"/staff/**"
 						).permitAll()
 				.anyRequest().authenticated());
 		
