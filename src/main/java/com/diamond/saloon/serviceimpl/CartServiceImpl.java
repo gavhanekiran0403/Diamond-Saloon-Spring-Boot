@@ -1,6 +1,6 @@
 package com.diamond.saloon.serviceimpl;
 
-import java.time.LocalDateTime;
+import java.time.LocalDateTime; 
 import java.util.ArrayList;
 
 
@@ -11,7 +11,6 @@ import com.diamond.saloon.dto.AddToCartDto;
 import com.diamond.saloon.dto.CartDto;
 import com.diamond.saloon.exception.BadRequestException;
 import com.diamond.saloon.exception.ResourceNotFoundException;
-import com.diamond.saloon.mapper.CartItemMapper;
 import com.diamond.saloon.mapper.CartMapper;
 import com.diamond.saloon.model.Cart;
 import com.diamond.saloon.model.CartItem;
@@ -31,9 +30,6 @@ public class CartServiceImpl implements CartService{
 	
 	@Autowired
 	private CartMapper cartMapper;
-	
-	@Autowired
-	private CartItemMapper cartItemMapper;
 	
 	
 	// Utility Method
