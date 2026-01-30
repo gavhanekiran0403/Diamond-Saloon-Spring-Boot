@@ -1,6 +1,6 @@
 package com.diamond.saloon.controller;
 
-import java.util.List;
+import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.diamond.saloon.dto.ProductCategoryDto;
-import com.diamond.saloon.model.ProductCategory;
 import com.diamond.saloon.service.ProductCategoryService;
 
 @RestController
@@ -24,39 +23,51 @@ public class ProductCategoryController {
 	@Autowired
 	private ProductCategoryService ProductCategoryService;
 	
+	
+	
+	//Create a new product category
 	@PostMapping("/create")
-	public ProductCategory createCategory(@RequestBody ProductCategoryDto categoryDto) {
+	public ProductCategoryDto createCategory(@RequestBody ProductCategoryDto categoryDto) {
 		return ProductCategoryService.addCategory(categoryDto);
 		
 	}
 	
 	
+	
+	//Get all product categories
 	@GetMapping("/get-all")
-	public List<ProductCategory> getAllCategories(){
+	public List<ProductCategoryDto> getAllCategories(){
 		return ProductCategoryService.getAllCategories();
 		
 	}
 	
 	
+	
+	//Get product category by Id
 	@GetMapping("/{productCategoryId}")
-	public ProductCategory getProductCategoryById(@PathVariable String productCategoryId) {
+	public ProductCategoryDto getProductCategoryById(@PathVariable String productCategoryId) {
 		return ProductCategoryService.getProductCategoryById(productCategoryId);
 	}
 	
 	
+	
+	//Update an existing product category
 	@PutMapping("/update/{productCategoryId}")
-	public ProductCategory updateCategory(@PathVariable String productCategoryId, @RequestBody ProductCategoryDto categoryDto) {
+	public ProductCategoryDto updateCategory(@PathVariable String productCategoryId, @RequestBody ProductCategoryDto categoryDto) {
 		return ProductCategoryService.updateProductCategory(productCategoryId, categoryDto);
 		
 	}
 
+	
 
+	//Delete product category by Id
 	@DeleteMapping("/delete/{productCategoryId}")
 	public String deleteProductCategory(@PathVariable String productCategoryId) {
 		ProductCategoryService.deleteProductCategory(productCategoryId);
 		return "Product category deleted Successfully";
 		
 	}
+	
 	
 	
 }
