@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.diamond.saloon.dto.AddToCartDto;
@@ -36,16 +37,18 @@ public class CartController {
 	}
 	
 	// update cart
-	@PutMapping("/update")
-	public CartDto updateCart(@RequestBody AddToCartDto cartDto) {
-		return cartService.updateCart(cartDto);
+	@PutMapping("/update/{cartItemId}")
+	public CartDto updateCart(@PathVariable String cartItemId,
+							  @RequestParam String userId,
+							  @RequestParam int quantity) {
+		return cartService.updateCart(userId, cartItemId, quantity);
 		
 	}
 	
 	// delete product from cart
-	@DeleteMapping("/{userId}/product/{productId}")
-	public String removeProduct(@PathVariable String userId, @PathVariable String productId) {
-		cartService.removeProduct(userId, productId);
+	@DeleteMapping("/{userId}/item/{cartItemId}")
+	public String removeProduct(@PathVariable String userId, @PathVariable String cartItemId) {
+		cartService.removeProduct(userId, cartItemId);
 		return "Product removed from cart";
 	}
 

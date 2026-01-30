@@ -9,9 +9,9 @@ public interface CartService {
 	
 	public CartDto getCart(String userId);
 	
-	public CartDto updateCart(AddToCartDto requestDto);
+	public CartDto updateCart(String userId, String cartItemId, int quantity);
 	
-	public CartDto removeProduct(String userId, String productId);
+	public void removeProduct(String userId, String cartItemId);
 	
-	public CartDto clearCart(String userId);
+	public void clearCart(String userId);
 }

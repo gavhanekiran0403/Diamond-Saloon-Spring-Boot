@@ -22,7 +22,7 @@ public class CartDto {
 	
 	@NotEmpty(message = "Cart must contain at least one product")
 	@Valid
-	private List<CartItem> products;
+	private List<CartItemDto> products;
 	
 	@NotNull(message = "Total amount is required")
 	@Min(value = 0, message = "Total amount cannot be negative")

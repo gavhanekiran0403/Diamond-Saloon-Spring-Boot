@@ -1,6 +1,7 @@
 package com.diamond.saloon.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -19,7 +20,7 @@ public class Cart {
 	
 	private String userId;
 	
-	private List<CartItem> products;
+	private List<CartItem> products = new ArrayList<>();
 	
 	private double totalAmount;
 	
