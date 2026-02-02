@@ -17,6 +17,8 @@ import com.diamond.saloon.dto.ProductDto;
 import com.diamond.saloon.responsedto.ProductResponseDto;
 import com.diamond.saloon.service.ProductService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -27,7 +29,7 @@ public class ProductController {
 	
 	// Add new product
 	@PostMapping(value = "/add", consumes = "multipart/form-data")
-	public ProductResponseDto addProduct(@RequestPart("product") ProductDto productDto, 
+	public ProductResponseDto addProduct(@Valid @RequestPart("product") ProductDto productDto, 
 						@RequestPart("image") MultipartFile image)  {
 		
 		return productService.addProduct(productDto, image);	
