@@ -52,7 +52,14 @@ public class OrderServiceImpl implements OrderService {
 		List<OrderItem> orderItems;
 		double totalAmount;
 		
+		
+		// Buy now from product page 
 		if(requestDto.getProductId() != null) {
+			
+			if(requestDto.getQuantity() <= 0) {
+				throw new BadRequestException("Quantity must be greater than zero");
+			}
+			
 			Product product = productRepository.findById(requestDto.getProductId())
 					.orElseThrow(() -> new ResourceNotFoundException("Product not found"));
 			
@@ -66,39 +73,81 @@ public class OrderServiceImpl implements OrderService {
 			totalAmount = product.getPrice() * requestDto.getQuantity();
 			
 		}
-		else {
+		
+		
+		// Buy now from cart
+		else if(requestDto.getCartItemId() != null){
 			
 			Cart cart = cartRepository.findByUserId(requestDto.getUserId())
 					.orElseThrow(() -> new ResourceNotFoundException("Cart not found"));
-
-			List<CartItem> selectedItems = cart.getProducts().stream()
-					.filter(ci -> requestDto.getCartItemIds()
-					.contains(ci.getCartItemId()))
-					.toList();
-
-			if (selectedItems.isEmpty()) {
-				throw new BadRequestException("No cart items selected");
-			}
 			
-			orderItems = selectedItems.stream().map(oi -> {
+			
+			CartItem cartItem = cart.getProducts().stream()
+					.filter(ci -> ci.getCartItemId().equals(requestDto.getCartItemId()))
+					.findFirst()
+					.orElseThrow(() -> new BadRequestException("Cart item not found"));
+			
+			OrderItem item = new OrderItem();
+			item.setProductId(cartItem.getProductId());
+			item.setProductName(cartItem.getProductName());
+			item.setPrice(cartItem.getPrice());
+			item.setQuantity(cartItem.getQuantity());
+			
+			orderItems = List.of(item);
+			totalAmount = cartItem.getPrice() * cartItem.getQuantity();
+			
+			cart.getProducts().remove(cartItem);
+			
+			cart.setTotalAmount(
+					cart.getProducts().stream()
+					.mapToDouble(i -> i.getPrice() * i.getQuantity())
+					.sum()
+			);
+			
+			cartRepository.save(cart);
+					
+		}
+		
+		
+		// Full cart checkout
+		else if(requestDto.isCartCheckout()){
+			
+			Cart cart = cartRepository.findByUserId(requestDto.getUserId())
+					.orElseThrow(() -> new ResourceNotFoundException("Cart not found"));
+			
+			if(cart.getProducts().isEmpty()) {
+				throw new BadRequestException("Cart is empty");
+			}
+
+			orderItems = cart.getProducts().stream().map(ci -> {
 				OrderItem item = new OrderItem();
-				item.setProductId(oi.getProductId());
-				item.setProductName(oi.getProductName());
-				item.setPrice(oi.getPrice());
-				item.setQuantity(oi.getQuantity());
+				item.setProductId(ci.getProductId());
+				item.setProductName(ci.getProductName());
+				item.setPrice(ci.getPrice());
+				item.setQuantity(ci.getQuantity());
 				return item;
 			}).toList();
 			
-			 totalAmount = orderItems.stream()
-					.mapToDouble(i -> i.getPrice() * i.getQuantity())
-					.sum();
+			totalAmount = orderItems.stream()
+						.mapToDouble(i -> i.getPrice() * i.getQuantity())
+						.sum();
+			 
+			cart.getProducts().clear();
+			cart.setTotalAmount(0);
+				
+			cartRepository.save(cart);
 			
 		}
+		else {
+			throw new BadRequestException("Invalid checkout request");
+		}
+		
 		
 		
 		Address address = addressRepository.findById(requestDto.getAddressId())
 				.orElseThrow(() -> new ResourceNotFoundException("Address not found"));
 		
+		// Create order
 		Order order = new Order();
 		order.setUserId(requestDto.getUserId());
 		order.setOrderStatus(OrderStatus.PLACED);
@@ -110,25 +159,11 @@ public class OrderServiceImpl implements OrderService {
 		
 		Order savedOrder = orderRepository.save(order);
 
-		savedOrder.getItems().forEach(i -> i.setOrderId(savedOrder.getOrderId()));
+		savedOrder.getItems().forEach(
+				i ->i.setOrderId(savedOrder.getOrderId())
+				);
+		
 		orderRepository.save(savedOrder);
-
-		if(requestDto.getCartItemIds() != null && !requestDto.getCartItemIds().isEmpty()) {
-			Cart cart = cartRepository.findByUserId(requestDto.getUserId())
-					.orElseThrow(() -> new ResourceNotFoundException("Cart not found"));
-			
-			cart.getProducts().removeIf(item -> 
-				requestDto.getCartItemIds().contains(item.getCartItemId()));
-			
-			cart.setTotalAmount(
-					cart.getProducts().stream()
-					.mapToDouble(i -> i.getPrice() * i.getQuantity())
-					.sum()
-			);
-
-			cartRepository.save(cart);
-
-		}
 		
 		savedOrder.setPaymentStatus(PaymentStatus.SUCCESS);
 		orderRepository.save(savedOrder);

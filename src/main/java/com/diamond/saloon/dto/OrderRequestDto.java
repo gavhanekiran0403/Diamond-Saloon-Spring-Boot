@@ -9,10 +9,12 @@ public class OrderRequestDto {
 
 	private String userId;
 	
-	private List<String> cartItemIds;
-	
 	private String productId;
 	private int quantity;
+	
+	private String cartItemId;
+	
+	private boolean cartCheckout;
 	
 	private String addressId;
 	
