@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.diamond.saloon.enums.PaymentMethod;
 import com.diamond.saloon.enums.PaymentStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
@@ -24,5 +25,6 @@ public class PaymentDto {
 	
 	private String transactionId;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy - hh:mma")
 	private LocalDateTime paymentDate;
 }

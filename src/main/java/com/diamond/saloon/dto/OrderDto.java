@@ -7,6 +7,8 @@ import com.diamond.saloon.enums.OrderStatus;
 import com.diamond.saloon.enums.PaymentStatus;
 import com.diamond.saloon.model.OrderAddress;
 import com.diamond.saloon.model.OrderItem;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 
 import lombok.Data;
 
@@ -27,7 +29,9 @@ public class OrderDto {
 	
 	private PaymentStatus paymentStatus;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy - hh:mma")
 	private LocalDateTime orderAt;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy - hh:mma")
 	private LocalDateTime deliveredAt;
 }
