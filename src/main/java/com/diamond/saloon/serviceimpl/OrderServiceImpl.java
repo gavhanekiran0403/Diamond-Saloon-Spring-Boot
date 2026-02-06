@@ -171,7 +171,7 @@ public class OrderServiceImpl implements OrderService {
 		return orderMapper.toDto(savedOrder);
 	}
 
-	
+	// get all Orders of specific user
 	@Override
 	public List<OrderDto> getUserOrders(String userId) {
 
@@ -182,6 +182,8 @@ public class OrderServiceImpl implements OrderService {
 
 	}
 
+	
+	// get order by id
 	@Override
 	public OrderDto getOrderById(String orderId) {
 
@@ -192,7 +194,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	
-	
+	// cancel order
 	@Override
 	public OrderDto cancelOrder(String orderId, String userId) {
 
@@ -218,6 +220,7 @@ public class OrderServiceImpl implements OrderService {
 
 	
 	
+	// Return order 
 	@Override
 	public OrderDto returnOrder(String orderId, ReturnOrderDto returnDto) {
 
@@ -244,7 +247,23 @@ public class OrderServiceImpl implements OrderService {
 
 		return orderMapper.toDto(orderRepository.save(order));
 	}
-
+	
+	
+	
+	
+	// Admin 
+	// get all orders
+	@Override
+	public List<OrderDto> getAllOrders() {
+		
+		return orderRepository.findAll()
+				.stream()
+				.map(orderMapper :: toDto)
+				.toList();
+	}
+	
+	
+	// update order status
 	@Override
 	public OrderDto updateOrderStatus(OrderStatusUpdateDto statusUpdateDto) {
 
@@ -273,7 +292,9 @@ public class OrderServiceImpl implements OrderService {
 
 		return orderMapper.toDto(orderRepository.save(order));
 	}
+	
 
+	// Approve return
 	@Override
 	public OrderDto approveReturn(String orderId) {
 
@@ -289,6 +310,8 @@ public class OrderServiceImpl implements OrderService {
 		return orderMapper.toDto(orderRepository.save(order));
 	}
 
+	
+	// Refund order amount
 	@Override
 	public OrderDto refundOrder(String orderId) {
 		Order order = orderRepository.findById(orderId)
@@ -339,5 +362,7 @@ public class OrderServiceImpl implements OrderService {
 		default -> false;
 		};
 	}
+
+
 
 }
