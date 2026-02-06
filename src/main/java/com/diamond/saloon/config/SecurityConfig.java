@@ -20,7 +20,8 @@ public class SecurityConfig {
 						"/user/**",
 						"/saloon-services/**",
 						"/saloon-packages/**",
-						"/staff/**"
+						"/staff/**",
+						"/appointments/**"
 						).permitAll()
 				.anyRequest().authenticated());
 		
