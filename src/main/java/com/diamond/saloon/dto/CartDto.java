@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.diamond.saloon.model.CartItem;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -28,5 +29,6 @@ public class CartDto {
 	@Min(value = 0, message = "Total amount cannot be negative")
 	private double totalAmount;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy - hh:mma")
 	private LocalDateTime updatedAt;
 }
