@@ -19,6 +19,8 @@ public interface OrderService {
 	
 	public OrderDto returnOrder(String orderId, ReturnOrderDto returnDto);
 	
+	public List<OrderDto> getAllOrders();
+	
 	public OrderDto updateOrderStatus(OrderStatusUpdateDto statusUpdateDto);
 	
 	public OrderDto approveReturn(String orderId);

@@ -61,6 +61,15 @@ public class OrderController {
 	}
 	
 	
+	
+	
+	// Admin Apis
+	// get all orders
+	@GetMapping("/get-all")
+	public List<OrderDto> getOrders(){
+		return orderService.getAllOrders();
+	} 
+	
 	// Update order status
 	@PutMapping("/status")
 	public OrderDto updateStatus(@RequestBody OrderStatusUpdateDto orderStatusUpdateDto) {
