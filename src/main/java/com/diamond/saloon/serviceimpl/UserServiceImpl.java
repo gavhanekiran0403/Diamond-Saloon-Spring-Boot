@@ -2,6 +2,7 @@ package com.diamond.saloon.serviceimpl;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
+
     @Override
     public UserResponseDto getUser(String userId) {
         User user = userRepository.findById(userId)
@@ -37,6 +39,7 @@ public class UserServiceImpl implements UserService {
         if (users.isEmpty()) {
             throw new ResourceNotFoundException("No users found");
         }
+
 
         return users.stream()
                 .filter(user -> user.getRole() == Role.CUSTOMER)
@@ -55,4 +58,5 @@ public class UserServiceImpl implements UserService {
 
         return userMapper.toDto(user);
     }
+
 }

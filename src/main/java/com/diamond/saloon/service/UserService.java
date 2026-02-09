@@ -14,4 +14,5 @@ public interface UserService {
 	public List<UserResponseDto> getAllUsers();
 	
 	public UserResponseDto updateUser(String userId, UserDto update);
+
 }

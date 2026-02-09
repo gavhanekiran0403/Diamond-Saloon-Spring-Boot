@@ -12,5 +12,5 @@ public class UserResponseDto {
 	private String phone;
 	private String email;
 	private Role role;
-
+	private Boolean loginStatus;
 }
