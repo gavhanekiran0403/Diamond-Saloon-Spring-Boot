@@ -1,39 +1,28 @@
 package com.diamond.saloon.mapper;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.diamond.saloon.dto.AppointmentDto;
 import com.diamond.saloon.model.Appointment;
+import com.diamond.saloon.responsedto.AppointmentResponseDto;
 
 @Component
 public class AppointmentMapper {
 
+	@Autowired
+	private ModelMapper modelMapper;
+	
     public Appointment dtoToEntity(AppointmentDto dto) {
         if (dto == null) return null;
 
-        Appointment entity = new Appointment();
-        entity.setAppointmentId(dto.getAppointmentId());
-        entity.setUserId(dto.getUserId());
-        entity.setServiceId(dto.getServiceId());
-        entity.setPackageId(dto.getPackageId());
-        entity.setAppointmentDate(dto.getAppointmentDate());
-        entity.setTimeSlot(dto.getTimeSlot());
-        entity.setStatus(dto.getStatus());
-
-        return entity;
+        return modelMapper.map(dto, Appointment.class);
     }
 
-    public AppointmentDto entityToDto(Appointment entity) {
+    public AppointmentResponseDto entityToDto(Appointment entity) {
         if (entity == null) return null;
-
-        return new AppointmentDto(
-                entity.getAppointmentId(),
-                entity.getUserId(),
-                entity.getServiceId(),
-                entity.getPackageId(),
-                entity.getAppointmentDate(),
-                entity.getTimeSlot(),
-                entity.getStatus()
-        );
+        
+        return modelMapper.map(entity, AppointmentResponseDto.class);
     }
 }
