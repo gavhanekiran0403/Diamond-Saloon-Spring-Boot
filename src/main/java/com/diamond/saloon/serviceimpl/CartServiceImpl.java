@@ -2,7 +2,6 @@ package com.diamond.saloon.serviceimpl;
 
 import java.time.LocalDateTime; 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

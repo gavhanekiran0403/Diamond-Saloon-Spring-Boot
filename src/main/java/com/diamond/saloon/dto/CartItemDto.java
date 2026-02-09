@@ -27,5 +27,6 @@ public class CartItemDto {
 	private int quantity;
 	
 	private boolean inStock;
+	
 	private String imageUrl;
 }
