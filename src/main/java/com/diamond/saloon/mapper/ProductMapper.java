@@ -8,8 +8,6 @@ import com.diamond.saloon.dto.ProductDto;
 import com.diamond.saloon.model.Product;
 import com.diamond.saloon.responsedto.ProductResponseDto;
 
-
-
 @Component
 public class ProductMapper {
 
