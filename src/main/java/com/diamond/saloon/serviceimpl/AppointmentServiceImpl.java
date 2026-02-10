@@ -10,6 +10,7 @@ import com.diamond.saloon.exception.ResourceNotFoundException;
 import com.diamond.saloon.mapper.AppointmentMapper;
 import com.diamond.saloon.model.Appointment;
 import com.diamond.saloon.repository.AppointmentRepository;
+import com.diamond.saloon.responsedto.AppointmentResponseDto;
 import com.diamond.saloon.service.AppointmentService;
 
 @Service
@@ -22,15 +23,19 @@ public class AppointmentServiceImpl implements AppointmentService {
     private AppointmentMapper appointmentMapper;
 
     @Override
-    public AppointmentDto createAppointment(AppointmentDto appointmentDto) {
-        Appointment entity = appointmentMapper.dtoToEntity(appointmentDto);
-        entity.setStatus("BOOKED");
-        Appointment saved = appointmentRepository.save(entity);
-        return appointmentMapper.entityToDto(saved);
+    public AppointmentResponseDto createAppointment(AppointmentDto appointmentDto) {
+
+        Appointment appointment = appointmentMapper.toEntity(appointmentDto);
+        appointment.setStatus("BOOKED");
+
+        return appointmentMapper.toDto(
+                appointmentRepository.save(appointment));
     }
 
     @Override
-    public AppointmentDto updateAppointment(String appointmentId, AppointmentDto appointmentDto) {
+    public AppointmentResponseDto updateAppointment(
+            String appointmentId, AppointmentDto appointmentDto) {
+
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Appointment not found"));
 
@@ -38,54 +43,43 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointment.setTimeSlot(appointmentDto.getTimeSlot());
         appointment.setStatus(appointmentDto.getStatus());
 
-        Appointment updated = appointmentRepository.save(appointment);
-        return appointmentMapper.entityToDto(updated);
+        return appointmentMapper.toDto(
+                appointmentRepository.save(appointment));
     }
 
     @Override
-    public AppointmentDto getAppointmentById(String appointmentId) {
+    public AppointmentResponseDto getAppointmentById(String appointmentId) {
+
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Appointment not found"));
-        return appointmentMapper.entityToDto(appointment);
+
+        return appointmentMapper.toDto(appointment);
     }
 
     @Override
-    public List<AppointmentDto> getAllAppointments() {
-        List<Appointment> appointments = appointmentRepository.findAll();
-        if (appointments.isEmpty()) {
-            throw new ResourceNotFoundException("No appointments found");
-        }
-        return appointments.stream()
-                .map(appointmentMapper::entityToDto)
+    public List<AppointmentResponseDto> getAllAppointments() {
+
+        return appointmentRepository.findAll()
+                .stream()
+                .map(appointmentMapper::toDto)
                 .toList();
     }
 
     @Override
-    public List<AppointmentDto> getAppointmentsByUserId(String userId) {
-        List<Appointment> appointments = appointmentRepository.findByUserId(userId);
-        if (appointments.isEmpty()) {
-            throw new ResourceNotFoundException("No appointments found for user");
-        }
-        return appointments.stream()
-                .map(appointmentMapper::entityToDto)
-                .toList();
-    }
+    public List<AppointmentResponseDto> getAppointmentsByUserId(String userId) {
 
-    @Override
-    public List<AppointmentDto> getAppointmentsByStatus(String status) {
-        List<Appointment> appointments = appointmentRepository.findByStatus(status);
-        if (appointments.isEmpty()) {
-            throw new ResourceNotFoundException("No appointments found with status: " + status);
-        }
-        return appointments.stream()
-                .map(appointmentMapper::entityToDto)
+        return appointmentRepository.findByUserId(userId)
+                .stream()
+                .map(appointmentMapper::toDto)
                 .toList();
     }
 
     @Override
     public void cancelAppointment(String appointmentId) {
+
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Appointment not found"));
+
         appointment.setStatus("CANCELLED");
         appointmentRepository.save(appointment);
     }
