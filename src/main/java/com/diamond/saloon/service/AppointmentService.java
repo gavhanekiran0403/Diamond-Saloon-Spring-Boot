@@ -3,20 +3,21 @@ package com.diamond.saloon.service;
 import java.util.List;
 
 import com.diamond.saloon.dto.AppointmentDto;
+import com.diamond.saloon.responsedto.AppointmentResponseDto;
 
 public interface AppointmentService {
 
-    AppointmentDto createAppointment(AppointmentDto appointmentDto);
+	AppointmentResponseDto createAppointment(AppointmentDto appointmentDto);
 
-    AppointmentDto updateAppointment(String appointmentId, AppointmentDto appointmentDto);
+	AppointmentResponseDto updateAppointment(String appointmentId, AppointmentDto appointmentDto);
 
-    AppointmentDto getAppointmentById(String appointmentId);
+	AppointmentResponseDto getAppointmentById(String appointmentId);
 
-    List<AppointmentDto> getAllAppointments();
+    List<AppointmentResponseDto> getAllAppointments();
 
-    List<AppointmentDto> getAppointmentsByUserId(String userId);
+    List<AppointmentResponseDto> getAppointmentsByUserId(String userId);
 
-    List<AppointmentDto> getAppointmentsByStatus(String status);
+    List<AppointmentResponseDto> getAppointmentsByStatus(String status);
 
     void cancelAppointment(String appointmentId);
 }
