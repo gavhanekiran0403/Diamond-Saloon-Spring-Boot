@@ -1,6 +1,6 @@
 package com.diamond.saloon.service;
 
-import java.util.List; 
+import java.util.List;  
 
 import com.diamond.saloon.dto.OrderDto;
 import com.diamond.saloon.dto.OrderRequestDto;
@@ -26,4 +26,6 @@ public interface OrderService {
 	public OrderDto approveReturn(String orderId);
 	
 	public OrderDto refundOrder(String orderId);
+	
+	public List<OrderDto> getTodayOrders();
 }

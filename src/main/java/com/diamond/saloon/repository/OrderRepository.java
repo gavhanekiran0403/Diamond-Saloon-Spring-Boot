@@ -1,5 +1,6 @@
 package com.diamond.saloon.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,5 +13,9 @@ import com.diamond.saloon.model.Order;
 public interface OrderRepository extends MongoRepository<Order, String>{
 	
 	public List<Order> findByUserId(String userId);
+	
+	List<Order> findByOrderAtBetween(LocalDateTime start, LocalDateTime end);
+	
+	
 }
 
