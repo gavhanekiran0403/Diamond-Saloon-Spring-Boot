@@ -10,6 +10,7 @@ public class AddToCartDto {
 
 	@NotBlank(message = "User id is required")
 	private String userId;
+	
 	@NotBlank(message = "Product id is required")
 	private String productId;
 	

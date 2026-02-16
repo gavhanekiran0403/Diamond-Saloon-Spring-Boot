@@ -1,6 +1,6 @@
 package com.diamond.saloon.serviceimpl;
 
-import java.time.LocalDateTime;
+import java.time.LocalDateTime; 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -328,6 +328,18 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	
+	@Override
+	public List<OrderDto> getTodayOrders() {
+		
+		LocalDateTime startOfDay = LocalDateTime.now().toLocalDate().atStartOfDay();
+		LocalDateTime endOfDay = startOfDay.plusDays(1);
+		
+		return orderRepository.findByOrderAtBetween(startOfDay, endOfDay)
+				.stream()
+				.map(orderMapper :: toDto)
+				.toList();
+	}
+	
 	
 	
 	// Helper method
@@ -362,6 +374,7 @@ public class OrderServiceImpl implements OrderService {
 		default -> false;
 		};
 	}
+
 
 
 
