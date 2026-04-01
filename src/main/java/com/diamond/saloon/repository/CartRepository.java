@@ -7,9 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.diamond.saloon.model.Cart;
 
-
 @Repository
-public interface CartRepository extends MongoRepository<Cart, String>{
+public interface CartRepository extends MongoRepository<Cart, String> {
 
 	Optional<Cart> findByUserId(String userId);
 }

@@ -12,13 +12,13 @@ public class OrderMapper {
 
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	public Order toEntity(OrderDto dto) {
 		return modelMapper.map(dto, Order.class);
 	}
-	
+
 	public OrderDto toDto(Order order) {
 		return modelMapper.map(order, OrderDto.class);
 	}
-	
+
 }

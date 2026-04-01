@@ -10,12 +10,16 @@ import org.springframework.stereotype.Repository;
 import com.diamond.saloon.model.Order;
 
 @Repository
-public interface OrderRepository extends MongoRepository<Order, String>{
-	
-	public List<Order> findByUserId(String userId);
-	
-	List<Order> findByOrderAtBetween(LocalDateTime start, LocalDateTime end);
-	
-	
-}
+public interface OrderRepository extends MongoRepository<Order, String> {
 
+	public List<Order> findByUserId(String userId);
+
+	public Order findTopByUserIdOrderByCreatedAtDesc(String userId);
+
+	public List<Order> findByUserIdOrderByCreatedAtDesc(String userId);
+
+	public Optional<Order> findByOrderIdAndUserId(String orderId, String userId);
+
+	public List<Order> findByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
+
+}

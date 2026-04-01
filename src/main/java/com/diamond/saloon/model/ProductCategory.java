@@ -1,9 +1,8 @@
 package com.diamond.saloon.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-
 
 import lombok.Data;
 
@@ -13,8 +12,9 @@ public class ProductCategory {
 
 	@Id
 	private String productCategoryId;
-	
+
+	@Indexed(unique = true)
 	private String categoryName;
-	
+
 	private String description;
 }

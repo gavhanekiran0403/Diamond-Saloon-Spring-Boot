@@ -2,28 +2,27 @@ package com.diamond.saloon.model;
 
 import java.util.UUID;
 
-import org.springframework.data.annotation.Id;
-
 import lombok.Data;
-
 
 @Data
 public class OrderItem {
 
-	private String ordeItemId;
-	
-	private String orderId;
-	
+	private String orderItemId;
+
 	private String productId;
-	
+
 	private String productName;
-	
+
+	private String brand;
+
 	private double price;
-	
+
 	private int quantity;
-	
+
+	private String imageUrl;
+
 	public OrderItem() {
-		this.ordeItemId = UUID.randomUUID().toString().substring(0, 12);
+		this.orderItemId = UUID.randomUUID().toString();
 	}
-	
+
 }

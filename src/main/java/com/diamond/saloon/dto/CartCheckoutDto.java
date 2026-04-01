@@ -1,20 +1,19 @@
 package com.diamond.saloon.dto;
 
+import java.util.List;
+
 import com.diamond.saloon.enums.PaymentMethod;
 
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class BuyNowRequestDto {
+public class CartCheckoutDto {
 
-	@NotBlank(message = "Product id is required")
-	private String productId;
-
-	@Min(value = 1, message = "Quantity must be at least 1")
-	private int quantity;
+	@Size(max = 10, message = "Cannot checkout more than 10 items")
+	private List<String> cartItemIds;
 
 	@NotBlank(message = "Address id is required")
 	private String addressId;
