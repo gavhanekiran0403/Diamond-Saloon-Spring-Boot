@@ -1,11 +1,10 @@
 package com.diamond.saloon.service;
 
-import java.util.List; 
+import java.util.List;  
 
-
-import com.diamond.saloon.dto.UserDto;
+import com.diamond.saloon.dto.ChangePasswordDto;
+import com.diamond.saloon.dto.UserUpdateDto;
 import com.diamond.saloon.responsedto.UserResponseDto;
-
 
 public interface UserService {
 
@@ -13,6 +12,7 @@ public interface UserService {
 	
 	public List<UserResponseDto> getAllUsers();
 	
-	public UserResponseDto updateUser(String userId, UserDto update);
-
+	public UserResponseDto updateUser(String userId, UserUpdateDto update);
+	
+	public void changePassword(String userId, ChangePasswordDto passwordDto);
 }

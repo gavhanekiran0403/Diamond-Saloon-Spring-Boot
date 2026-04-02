@@ -2,14 +2,16 @@ package com.diamond.saloon.enums;
 
 public enum OrderStatus {
 
+	PENDING_PAYMENT,
 	PLACED,
 	PACKED,
 	SHIPPED,
 	OUT_FOR_DELIVERY,
 	DELIVERED,
-	
+
 	CANCELLED,
 	RETURN_REQUESTED,
 	RETURN_APPROVED,
+	RETURN_REJECTED,
 	REFUNDED
 }

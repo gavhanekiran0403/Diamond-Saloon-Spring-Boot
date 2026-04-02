@@ -1,7 +1,5 @@
 package com.diamond.saloon.model;
 
-
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,15 +14,19 @@ public class User {
 
 	@Id
 	private String userId;
-	
+
 	private String fullName;
+
+	@Indexed(unique = true)
 	private String email;
-	
+
 	@Indexed(unique = true)
 	private String phone;
+
 	private String password;
-	private Role role;
-	
+
+	private Role role = Role.CUSTOMER;
+
 	private Boolean loginStatus = false;
-	
+
 }

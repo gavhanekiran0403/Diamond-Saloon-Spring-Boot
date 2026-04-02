@@ -12,11 +12,12 @@ public class CartItemMapper {
 
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	public CartItem toEntity(CartItemDto dto) {
 		return modelMapper.map(dto, CartItem.class);
+
 	}
-	
+
 	public CartItemDto toDto(CartItem entity) {
 		return modelMapper.map(entity, CartItemDto.class);
 	}
